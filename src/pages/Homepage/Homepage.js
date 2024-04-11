@@ -30,9 +30,9 @@ export default function HomePage() {
     if(estimado != 0 && global != 0){
       const valorGlobalFormatado = global.replace(",", "").replace(".", "");
       const valorEstimadoFormatado = estimado.replace(",", "").replace(".", "");
-      console.log(valorEstimadoFormatado, valorGlobalFormatado);
+      console.log(valorGlobalFormatado);
      
-      setValorPagina(global/estimado);
+      setValorPagina(valorGlobalFormatado/estimado);
 
     } else setValorPagina(0);
 
@@ -47,7 +47,7 @@ export default function HomePage() {
 
       <ToastContainer />
       <br />
-
+      <h2>LICITAÇÃO PP - SECRETARIA DE EDUCAÇÃO 2024</h2>
       <Container>
         <label>QUANTIDADE DE CÓPIAS ESTIMADA <strong>(ANUAL)</strong></label>
         <Locked>
@@ -121,6 +121,7 @@ display: flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
+
 input{
     width: 80%;
     height: 60px;
@@ -140,9 +141,15 @@ input{
   }
 `
 const ContainerPage = styled.div`
+  text-align: center;
   padding: 1rem;
   width: 100vw;
   height: 100vh;
+
+  h2{
+  margin-bottom: -80px;
+  margin-top: 40px;
+}
 
   display: flex;
   flex-direction: column;
