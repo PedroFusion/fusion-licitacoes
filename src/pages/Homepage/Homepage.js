@@ -119,6 +119,7 @@ padding: 20px;
 }
 h2{
   margin-bottom: 40px;
+  margin-top: 40px;
 }
 display: flex;
 flex-direction: column;
