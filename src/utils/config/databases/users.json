@@ -1,0 +1,25 @@
+{
+    "users": [
+        {
+            "id": 1,
+            "name": "Pedro",
+            "email": "pedro@soslocacoes.com",
+            "pass": "123",
+            "control_acess": "769580F0CF81FD04998C3EEF70BA79DC"
+        },
+        {
+            "id": 2,
+            "name": "Alexandre",
+            "email": "alexandre@soslocacoes.com",
+            "pass": "123",
+            "control_acess": "E81C62083C2A5B7821C880BA8AD6339C"
+        },
+        {
+            "id": 3,
+            "name": "André Vidal",
+            "email": "andre@soslocacoes.com",
+            "pass": "123",
+            "control_acess": "0A672735F04E0B5E13061D9C78C0C1F2"
+        }
+    ]
+}
