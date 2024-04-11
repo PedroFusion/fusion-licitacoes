@@ -47,8 +47,8 @@ export default function HomePage() {
 
       <ToastContainer />
       <br />
-      <h2>LICITAÇÃO PP - SECRETARIA DE EDUCAÇÃO 2024</h2>
       <Container>
+      <h2>LICITAÇÃO PP - SECRETARIA DE EDUCAÇÃO 2024</h2>
         <label>QUANTIDADE DE CÓPIAS ESTIMADA <strong>(ANUAL)</strong></label>
         <Locked>
           <input disabled={ lockEstimado ? true : false} type="number" placeholder="R$ X.XXX,XX" onChange={(e) => setEstimado(e.target.value)}  onBlur={() => calculate()}/><br />
@@ -117,6 +117,9 @@ padding: 20px;
 .button_lock{
   color: green;
 }
+h2{
+  margin-bottom: 40px;
+}
 display: flex;
 flex-direction: column;
 justify-content: center;
@@ -146,10 +149,7 @@ const ContainerPage = styled.div`
   width: 100vw;
   height: 100vh;
 
-  h2{
-  margin-bottom: -80px;
-  margin-top: 40px;
-}
+
 
   display: flex;
   flex-direction: column;
