@@ -27,11 +27,17 @@ export default function HomePage() {
 
   function calculate() {
     
+    if(estimado != 0 && global != 0){
+      const valorGlobalFormatado = global.replace(",", "").replace(".", "");
+      const valorEstimadoFormatado = estimado.replace(",", "").replace(".", "");
+      console.log(valorEstimadoFormatado, valorGlobalFormatado);
+     
+      setValorPagina(global/estimado);
 
-    setValorPagina(global/estimado);
+    } else setValorPagina(0);
+
   }
 
-  console.log(estimado, global, valorPagina)
   return (
     <ContainerPage>
       <img src={Bg_image} alt="Imagem de fundo" />
@@ -56,12 +62,12 @@ export default function HomePage() {
         <label><strong>VALOR GLOBAL (ATUAL)</strong></label>
         <Locked>
 
-          <input type="number" placeholder="R$ X.XXX,XX" onChange={(e) => setGlobal(e.target.value)} onBlur={() => calculate()}/><br />
+          <input min={0} required  type="number" placeholder="R$ X.XXX,XX" onChange={(e) => setGlobal(e.target.value)} onBlur={() => calculate()}/><br />
           <MdOutlineAttachMoney  className="button_lock"/>
         </Locked>
 
         <label>VALOR POR PÁGINA (ATUAL)</label>
-        <h1>R$ {valorPagina.toFixed(4).replace(".", ',')}</h1>
+        <h1>R$ { typeof(valorPagina) == "number" ? valorPagina.toFixed(4).replace(".", ',') : 0}</h1>
       </Container>
 
       <span>
@@ -91,19 +97,22 @@ export default function HomePage() {
 const Locked = styled.div` 
   display: flex;
   width: 100%;
-  padding: 10px;
+  height: 75px;
   user-select: none;
 
   justify-content: space-evenly;
   align-items: center;
 
-  font-size: 70px;
+  font-size: 3rem;
   color: red;
+  margin-bottom: 20px;
   `
 
 const Container = styled.div` 
 height: 80%;
 width: 100%;
+min-height: 500px;
+max-width: 500px;
 padding: 20px;
 .button_lock{
   color: green;
@@ -114,9 +123,9 @@ justify-content: center;
 align-items: center;
 input{
     width: 80%;
-    height: 100px;
+    height: 60px;
     font-weight: 600;
-    font-size: 28px;
+    font-size: 3rem;
     text-align: center;
     padding: 10px;
     border-radius: 10px;
@@ -127,17 +136,16 @@ input{
     color: #20d420;
   }
   h1{
-    font-size: 98px !important;
+    font-size: 3rem !important;
   }
 `
 const ContainerPage = styled.div`
-  padding: 2rem;
+  padding: 1rem;
   width: 100vw;
   height: 100vh;
 
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
   position: relative;
 
@@ -231,8 +239,6 @@ const ContainerPage = styled.div`
         opacity: 0.8;
       }
     }
-    input {
-      margin-bottom: 10px;
-    }
+  
   }
 `;
