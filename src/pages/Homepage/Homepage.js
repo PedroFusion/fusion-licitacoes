@@ -67,7 +67,7 @@ export default function HomePage() {
         </Locked>
 
         <label>VALOR POR PÁGINA (ATUAL)</label>
-        <h1>R$ { typeof(valorPagina) == "number" ? valorPagina.toFixed(4).replace(".", ',') : 0}</h1>
+        <h1>R$ { typeof(valorPagina) == "number" ? valorPagina.toFixed(8).replace(".", ',') : 0}</h1>
       </Container>
 
       <span>
