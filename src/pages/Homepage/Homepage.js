@@ -11,6 +11,7 @@ import { MdOutlineAttachMoney } from "react-icons/md";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import CurrencyInput from 'react-currency-masked-input'
+import BlockRightClickAndKeys from "../../blockUserClick";
 
 
 
@@ -38,7 +39,15 @@ export default function HomePage() {
 
   }
 
+  function checkIfNumber(event) {
+
+    const regex = new RegExp(/(^\d*$)|(Backspace|Tab|Delete|ArrowLeft|ArrowRight)/);
+         
+    return !event.key.match(regex) && event.preventDefault();
+ }
+
   return (
+    <BlockRightClickAndKeys>
     <ContainerPage>
       <img src={Bg_image} alt="Imagem de fundo" />
       
@@ -46,28 +55,29 @@ export default function HomePage() {
       <span>FUSION LICITAÇÕES</span>
 
       <ToastContainer />
-      <br />
+      
+      <h1><br />CALCULADORA DE LICITAÇÃO</h1>
       <Container>
-      <h2>LICITAÇÃO PP - SECRETARIA DE EDUCAÇÃO 2024</h2>
         <label>QUANTIDADE DE CÓPIAS ESTIMADA <strong>(ANUAL)</strong></label>
         <Locked>
-          <input disabled={ lockEstimado ? true : false} type="number" placeholder="R$ X.XXX,XX" onChange={(e) => setEstimado(e.target.value)}  onBlur={() => calculate()}/><br />
+          <input  onKeyDown={(event) => checkIfNumber(event)} disabled={ lockEstimado ? true : false} type="number" min={1} placeholder="R$ X.XXX,XX" onChange={(e) => setEstimado(e.target.value)}  onBlur={() => calculate()}/><br />
           { lockEstimado ? <FaLock className="button_lock" onClick={() => setLockEstimado(!lockEstimado)}/> : <FaLockOpen onClick={() => setLockEstimado(!lockEstimado)}/>}
         </Locked>
         <label>QUANTIDADE DE MÁQUINAS</label>
         <Locked>
-          <input  disabled={ lockMaquinas ? true : false}type="number" placeholder="XX" onChange={(e) => setQtdMaquinas(e.target.value)}  onBlur={() => calculate()}/><br />
+          <input  onKeyDown={(event) => checkIfNumber(event)}  disabled={ lockMaquinas ? true : false}type="number" placeholder="XX" onChange={(e) => setQtdMaquinas(e.target.value)}  onBlur={() => calculate()}/><br />
           { lockMaquinas ? <FaLock className="button_lock" onClick={() => setLockMaquinas(!lockMaquinas)}/> : <FaLockOpen onClick={() => setLockMaquinas(!lockMaquinas)}/>}
         </Locked>
         <label><strong>VALOR GLOBAL (ATUAL)</strong></label>
         <Locked>
 
-          <input min={0} required  type="number" placeholder="R$ X.XXX,XX" onChange={(e) => setGlobal(e.target.value)} onBlur={() => calculate()}/><br />
+          <input min={0} required  onKeyDown={(event) => checkIfNumber(event)} type="number" placeholder="R$ X.XXX,XX" onChange={(e) => setGlobal(e.target.value)} onBlur={() => calculate()}/><br />
           <MdOutlineAttachMoney  className="button_lock"/>
         </Locked>
 
         <label>VALOR POR PÁGINA (ATUAL)</label>
-        <h1>R$ { typeof(valorPagina) == "number" ? valorPagina.toFixed(8).replace(".", ',') : 0}</h1>
+        <h1>R$ { typeof(valorPagina) == "number" ? valorPagina.toFixed(6).replace(".", ',') : 0}</h1>
+        <span>PRECISÃO DE 6 CASAS DECIMAIS</span>
       </Container>
 
       <span>
@@ -87,11 +97,12 @@ export default function HomePage() {
             })
           }
         >
-          Pedro Henrique
+          Pedro Henrique 🚀
         </a>
         .
       </span>
     </ContainerPage>
+    </BlockRightClickAndKeys>
   );
 }
 const Locked = styled.div` 
@@ -109,9 +120,7 @@ const Locked = styled.div`
   `
 
 const Container = styled.div` 
-height: 80%;
 width: 100%;
-min-height: 500px;
 max-width: 500px;
 padding: 20px;
 .button_lock{
@@ -137,7 +146,7 @@ input{
     outline: none;
     margin-bottom: 10px;
     font-size: 1rem;
-    font-family: "Poppins";
+    font-family: "Inter";
     color: #20d420;
   }
   h1{
@@ -146,7 +155,7 @@ input{
 `
 const ContainerPage = styled.div`
   text-align: center;
-  padding: 1rem;
+  padding: 20px;
   width: 100vw;
   height: 100vh;
 
@@ -154,8 +163,8 @@ const ContainerPage = styled.div`
 
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  position: relative;
 
   img:nth-child(1) {
     width: 100vw;
@@ -177,33 +186,17 @@ const ContainerPage = styled.div`
   }
 
   h1 {
-    font-family: "Poppins";
+    font-family: "Inter";
     color: black;
     font-size: 2rem;
+    font-weight: 900;
     text-align: center;
     letter-spacing: 0.1rem;
   }
-  .my_ip {
-    width: 100%;
-    position: fixed;
-    bottom: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: "Poppins";
-    color: #20d420;
-    backdrop-filter: blur(3px);
-    background-color: rgba(0, 0, 0, 0.75);
-
-    cursor: not-allowed;
-    h4 {
-      margin-left: 5px;
-      font-weight: 400;
-    }
-  }
+  
   span {
     text-transform: uppercase;
-    font-family: "Poppins";
+    font-family: "Inter";
     color: black;
     font-size: 0.8rem;
   }
@@ -220,33 +213,5 @@ const ContainerPage = styled.div`
       cursor: pointer;
       filter: brightness(0.6);
     }
-  }
-  form {
-    width: 90%;
-    display: flex;
-    flex-direction: column;
-
-    margin-bottom: 20px;
-
-    button {
-      margin-top: 10px;
-      height: 60px;
-      border-radius: 10px;
-      text-transform: uppercase;
-      color: #fffcf2;
-      background-color: #252422;
-
-      font-weight: 600;
-      font-size: 1rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1rem;
-
-      transition: 0.3s linear;
-      &:hover {
-        cursor: pointer;
-        opacity: 0.8;
-      }
-    }
-  
   }
 `;
